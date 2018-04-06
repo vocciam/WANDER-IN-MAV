@@ -32,18 +32,17 @@ public class ClsGraph {
 
         AdjacencyListGraph g = new AdjacencyListGraph();
         AdjacencyListGraph.DecVertex v_min = g.new DecVertex("SORGENTE");
-        //v_min.put("LAT", x_s);
-        //v_min.put("LON",y_s);
 
         java.util.Iterator<AdjacencyListGraph.DecVertex> it = listHashMapPon.iterator();
 
         while(it.hasNext()){
             AdjacencyListGraph.DecVertex vertice = it.next();
+
             double x = Double.parseDouble((String)vertice.get("LAT"));
             double y = Double.parseDouble((String)vertice.get("LON"));
             distance = Math.hypot(x_s - x, y_s - y);
 
-            if (distance < distance_min){
+            if (distance < distance_min) {
                 v_min = vertice;
                 distance_min = distance;
             }
@@ -51,9 +50,6 @@ public class ClsGraph {
 
         Log.i("VERTICE:",v_min.toString());
         Log.i("DISTANZA DA SORGENTE:",""+distance_min);
-
-        v_min.remove("LAT");
-        v_min.remove("LON");
 
         AdjacencyListGraph graph2 = new AdjacencyListGraph();
 
