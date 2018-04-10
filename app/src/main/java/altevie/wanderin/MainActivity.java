@@ -1,7 +1,6 @@
 package altevie.wanderin;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -27,20 +25,15 @@ import com.estimote.indoorsdk_module.cloud.LocationPosition;
 import com.estimote.indoorsdk_module.view.IndoorLocationView;
 import com.estimote.internal_plugins_api.cloud.CloudCredentials;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import altevie.wanderin.utility.ClsGetJson;
 import altevie.wanderin.utility.ClsGraph;
 import altevie.wanderin.utility.GlobalObject;
+import altevie.wanderin.utility.PathView;
 import altevie.wanderin.utility.SyncResult;
-import altevie.wanderin.utility.TestDijkstra;
 import altevie.wanderin.utility.graphDec.AdjacencyListGraph;
-import altevie.wanderin.utility.graphDec.Vertex;
 
 import static altevie.wanderin.R.*;
 
@@ -53,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ClsGetJson getJson;
     private ClsGraph CGraph = new ClsGraph();
+    private PathView pathView;
     private ListView listView;
     private BaseAdapter mAdapter;
     private DrawerLayout mDrawerLayout;
@@ -66,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     protected Context context;
 
     ScanningIndoorLocationManager indoorLocationManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         queue = Volley.newRequestQueue(this);
         context = this;
         indoorLocationView = (IndoorLocationView) findViewById(R.id.indoor_view);
+        pathView = (PathView) findViewById(R.id.pathView);
 
         GlobalObject g = (GlobalObject)getApplication();
         loc = g.getLocation();
@@ -146,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //MM
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -154,17 +148,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.i("",locPos.toString());
 
-                //calculate the distance between my_position and PON
-                //add my_position to graph and the edge (min_distance)
-                AdjacencyListGraph graph2 = CGraph.calcGraph(locPos, listHashMapPon, graph);
-
                 //calculate Dikstra
-                AdjacencyListGraph gr = CGraph.calculateDijkstra(graph2, CGraph.getSorgente(), CGraph.calculateDestination(graph2,listHashMapPoi,i));
-                CGraph.printGraph(gr,context);
+                //CGraph.calcPath(locPos, listHashMapPon,graph, listHashMapPoi, i, context);
+                CGraph.calcPath(locPos, listHashMapPon,graph, listHashMapPoi, i, context, pathView);
+
                 mDrawerLayout.closeDrawers();
             }
         });
-        //MM
     }
 
     @Override

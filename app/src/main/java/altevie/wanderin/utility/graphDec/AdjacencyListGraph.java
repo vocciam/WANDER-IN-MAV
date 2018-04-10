@@ -322,7 +322,7 @@ public class AdjacencyListGraph implements Graph
 		public Iterator entries() {return M.keys();}
 	}
 	
-	protected class MyVertex extends MyPosition implements Vertex {
+	public class MyVertex extends MyPosition implements Vertex {
 		/** Lista di incidenza del vertice. */
 		protected List incEdges;
 		/** Posizione del vertice nel contenitore V del grafo. */

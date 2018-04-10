@@ -215,8 +215,8 @@ public class ClsGetJson {
                     }
                     //
                     Toast.makeText(context, "Grafo caricato correttamente - size:" + graph.numVertices(), Toast.LENGTH_LONG).show();
-                    Log.i("Graph-vertici:",tot);
-                    Log.i("Graph-archi:",tote);
+                    Log.i("Grafo-vertici:",tot);
+                    Log.i("Grafo-archi:",tote);
 
                 }catch (JSONException e){
                     e.printStackTrace();

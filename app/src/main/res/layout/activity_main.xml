@@ -20,6 +20,12 @@
         android:layout_height="match_parent"
         android:background="@color/colorStroke" />
 
+    <altevie.wanderin.utility.PathView
+        android:id="@+id/pathView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent" />
+
     <ListView
         android:id="@+id/POIList"
         android:layout_width="200dp"
